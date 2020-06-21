@@ -1,24 +1,57 @@
 import React from "react";
 import styled from "styled-components";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
 import CloseIcon from "../components/CloseIcon";
 
+type LoginModel = {
+  username: string;
+  password: string;
+};
+
+const LoginFormValidation = yup.object().shape({
+  username: yup.string().email().required().label("Username"),
+  password: yup.string().required().label("Password"),
+});
+
 const Login = () => {
+  const { getFieldProps, handleSubmit, errors } = useFormik<LoginModel>({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    validationSchema: LoginFormValidation,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <Container>
       <LoginBox>
         <CloseIcon />
         <Header>Login to Continue</Header>
-        <Form>
+
+        <Form onSubmit={handleSubmit} noValidate>
           <FormGroup>
             <label>Email</label>
-            <input type="text" />
+            <InputForm
+              className={`${!!errors.username ? "error" : ""}`}
+              type="text"
+              {...getFieldProps("username")}
+            />
           </FormGroup>
           <FormGroup>
             <label>Password</label>
-            <input type="password" />
+            <InputForm
+              className={`${errors.password ? "error" : ""}`}
+              type="password"
+              {...getFieldProps("password")}
+            />
           </FormGroup>
           <span>Forgot Password?</span>
-          <button>Login</button>
+          <button type="submit">Login</button>
         </Form>
       </LoginBox>
     </Container>
@@ -63,7 +96,7 @@ const Header = styled.div`
   margin-top: 40px;
 `;
 
-const Form = styled.div`
+const Form = styled.form`
   padding: 40px;
 
   span {
@@ -104,22 +137,22 @@ const FormGroup = styled.div`
     color: #245373;
     letter-spacing: 0;
   }
+`;
 
-  input {
-    background: #ffffff;
-    color: #0d3c5c;
-    border: 1px solid #e5e5e5;
-    border-radius: 5px;
-    width: 100%;
-    height: 75px;
-    font-size: 25px;
-    font-weight: lighter;
-    margin-top: 10px;
-    padding: 10px;
+const InputForm = styled.input`
+  background: #ffffff;
+  color: #0d3c5c;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  width: 100%;
+  height: 75px;
+  font-size: 25px;
+  font-weight: lighter;
+  margin-top: 10px;
+  padding: 10px;
 
-    :focus {
-      outline: none;
-      border-bottom: 5px solid #1997f0;
-    }
+  :focus {
+    outline: none;
+    border-bottom: 5px solid #1997f0;
   }
 `;

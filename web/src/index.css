@@ -7,3 +7,7 @@
 body {
   font-family: Helvetica;
 }
+
+.error {
+  border-bottom: 5px solid #e83b46 !important;
+}

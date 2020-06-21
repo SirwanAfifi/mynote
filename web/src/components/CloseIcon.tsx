@@ -3,7 +3,7 @@ import React from "react";
 const CloseIcon = () => {
   return (
     <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
-      <g stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g
           transform="translate(-1047.000000, -282.000000)"
           fill="#245373"
