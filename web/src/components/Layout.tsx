@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ReactNode } from "react";
+import CloseIcon from "./CloseIcon";
 
 type Props = {
   children?: ReactNode;
@@ -8,7 +9,9 @@ type Props = {
 const Layout = (props: Props) => {
   return (
     <Container>
-      <Sidebar></Sidebar>
+      <Sidebar>
+        <CloseIcon />
+      </Sidebar>
       <Main>{props.children}</Main>
     </Container>
   );
@@ -31,6 +34,16 @@ const Sidebar = styled.div`
     #9c52bb,
     #9442ae
   );
+  position: relative;
+  svg {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    path {
+      fill: #faf4fb;
+    }
+    cursor: pointer;
+  }
 `;
 const Main = styled.div`
   background-color: #faf4fb;
